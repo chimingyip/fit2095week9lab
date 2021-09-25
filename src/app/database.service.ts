@@ -24,7 +24,6 @@ export class DatabaseService {
 
   deleteMovie(title: string) {
     let url = "/movies/" + title;
-    console.log(url)
     return this.http.delete(url, httpOptions);
   }
 
