@@ -22,8 +22,9 @@ export class DatabaseService {
     return this.http.get(url);
   }
 
-  deleteMovie(id: string) {
-    let url = "/movies/" + id;
+  deleteMovie(title: string) {
+    let url = "/movies/" + title;
+    console.log(url)
     return this.http.delete(url, httpOptions);
   }
 
@@ -32,10 +33,10 @@ export class DatabaseService {
     return this.http.delete(url, httpOptions);
   }
 
-  deleteMovieByTitle(title: string) {
-    let url = '/movies/' + title + '/title/title';
-    return this.http.delete(url, httpOptions)
-  }
+  // deleteMovieByTitle(title: string) {
+  //   let url = '/movies/' + title;
+  //   return this.http.delete(url, httpOptions)
+  // }
 
   addActorToMovie(data: any, id: string){
     let url = '/movies/' + id + '/actors';

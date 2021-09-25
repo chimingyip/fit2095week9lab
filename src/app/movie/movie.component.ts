@@ -43,13 +43,6 @@ export class MovieComponent implements OnInit {
     })
   }
 
-  // Delete Movie
-  onDeleteMovie(item: any) {
-    this.dbService.deleteMovie(item._id).subscribe(result => {
-      this.onGetMovies();
-    });
-  }
-
   // Add actor to movie
   onAddActorToMovie() {
     let actorObj = { id: this.x._id };
@@ -69,8 +62,8 @@ export class MovieComponent implements OnInit {
     })
   }
 
-  onDeleteMovieByTitle(title: string) {
-    this.dbService.deleteMovieByTitle(title).subscribe(result => {
+  onDeleteMovie(title: string) {
+    this.dbService.deleteMovie(title).subscribe(result => {
       this.onGetMovies();
     })
   }

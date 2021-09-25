@@ -36,8 +36,9 @@ module.exports = {
         });
     },
     deleteOne: function (req, res) {
-        Movie.findOneAndRemove( { _id: req.params.id }, function (err) {
+        Movie.findOneAndRemove( { title: req.params.title }, function (err) {
             if (err) return res.status(400).json(err);
+            console.log('delete one reached')
             res.json();
         });
     },
