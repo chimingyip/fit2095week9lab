@@ -8,6 +8,7 @@ import { DatabaseService } from "../database.service";
 })
 export class MovieComponent implements OnInit {
   moviesDB: any[] = [];
+  oldMoviesDB: any[] = [];
   section = 1;
   movieId: string = "";
   title: string = "";
@@ -26,6 +27,7 @@ export class MovieComponent implements OnInit {
 
   ngOnInit() {
     this.onGetMovies();
+    this.onGetMoviesOlderThan1995();
   }
 
   // Get all movies
@@ -35,11 +37,18 @@ export class MovieComponent implements OnInit {
     });
   }
 
+  onGetMoviesOlderThan1995() {
+    this.dbService.getMoviesOlderThan1995().subscribe((data: any) => {
+      this.oldMoviesDB = data;
+    })
+  }
+
   // Create a new movie, POST request
   onSaveMovie() {
     let obj = { title: this.title, year: this.year};
     this.dbService.createMovie(obj).subscribe(result => {
       this.onGetMovies();
+      this.onGetMoviesOlderThan1995();
     })
   }
 
@@ -50,8 +59,10 @@ export class MovieComponent implements OnInit {
     this.dbService.addActorToMovie(actorObj, this.i._id).subscribe(result => {
       this.dbService.addMovieToActor(movieObj, this.x._id).subscribe(result => {
         this.onGetMovies();
+        this.onGetMoviesOlderThan1995();
       });
       this.onGetMovies();
+      this.onGetMoviesOlderThan1995();
     })
   }
 
@@ -59,12 +70,14 @@ export class MovieComponent implements OnInit {
     this.dbService.getActors().subscribe((data: any)=>{
       this.actorsDB1 = data;
       this.onGetMovies();
+      this.onGetMoviesOlderThan1995();
     })
   }
 
   onDeleteMovie(title: string) {
     this.dbService.deleteMovie(title).subscribe(result => {
       this.onGetMovies();
+      this.onGetMoviesOlderThan1995();
     })
   }
 
@@ -72,6 +85,7 @@ export class MovieComponent implements OnInit {
   onDeleteMoviesByYear(aYear1: number, aYear2: number) {
     this.dbService.deleteMoviesByYear(aYear1, aYear2).subscribe(result => {
       this.onGetMovies();
+      this.onGetMoviesOlderThan1995();
     });
   }
 
@@ -86,5 +100,7 @@ export class MovieComponent implements OnInit {
     this.title = "";
     this.year = 0;
     this.actors = [];
+    this.aYear1 = 0;
+    this.aYear2 = 0;
   }
 }

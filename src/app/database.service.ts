@@ -17,6 +17,11 @@ export class DatabaseService {
     return this.http.get("/movies");
   }
 
+  getMoviesOlderThan1995() {
+    let url = "/movies/0/1995"
+    return this.http.get(url);
+  }
+
   getMovie(id: string) {
     let url = "/movies/" + id;
     return this.http.get(url);
